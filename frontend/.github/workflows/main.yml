@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Log into Docker Hub
+      run: echo $DOCKER_TOKEN | docker login  --username duxet --password-stdin
+      env:
+        DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+    - name: Build the Docker image
+      run: docker build . --tag strimoid/strm-js:${{ github.sha }}
+    - name: Push the Docker image
+      run: docker push strimoid/strm-js:${{ github.sha }}

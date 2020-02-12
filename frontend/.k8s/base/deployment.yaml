@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strm-js
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: strm-js
+          image: strm-js
+          envFrom:
+            - configMapRef:
+                name: strm-js-config
+          ports:
+            - name: http
+              containerPort: 3000

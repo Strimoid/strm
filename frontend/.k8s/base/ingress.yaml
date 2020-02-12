@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  name: strm-js
+spec:
+  rules:
+  - host: new.strm.pl
+    http:
+      paths:
+      - backend:
+          serviceName: strm-js
+          servicePort: http
+        path: /
+  tls:
+  - hosts:
+    - new.strm.pl
+    secretName: new.strm.pl

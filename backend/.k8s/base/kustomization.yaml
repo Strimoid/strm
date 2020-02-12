@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - ingress.yaml
+  - service.yaml
+commonLabels:
+  app.kubernetes.io/name: strm
+configMapGenerator:
+  - name: strm
+    envs:
+      - common.env
+secretGenerator:
+  - name: strm
+    envs:
+      - secret.env
+generatorOptions:
+  disableNameSuffixHash: true
+images:
+  - name: strm
+    newName: strimoid/strm
+    newTag: 1794863c632b4d1f20d9961aa677eae877f31f7e

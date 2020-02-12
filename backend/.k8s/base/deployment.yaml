@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strm
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: strm
+          image: strm
+          envFrom:
+            - configMapRef:
+                name: strm
+            - secretRef:
+                name: strm
+          ports:
+            - name: http
+              containerPort: 4000

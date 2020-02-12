@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - ingress.yaml
+  - service.yaml
+commonLabels:
+  app.kubernetes.io/name: strm-js
+configMapGenerator:
+  - name: strm-js-config
+    envs:
+      - common.env
+generatorOptions:
+  disableNameSuffixHash: true
+images:
+  - name: strm-js
+    newName: strimoid/strm-js
+    newTag: 7e2afc00dbbf483aed360da56dfeda2d8a1366f3

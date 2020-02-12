@@ -1,6 +1,9 @@
-name: Docker Image CI
+name: Frontend CI
 
-on: [push]
+on:
+    push:
+      paths:
+      - 'frontend/**'
 
 jobs:
 
@@ -15,6 +18,6 @@ jobs:
       env:
         DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
     - name: Build the Docker image
-      run: docker build . --tag strimoid/strm-js:${{ github.sha }}
+      run: docker build frontend --tag strimoid/strm-js:${{ github.sha }}
     - name: Push the Docker image
       run: docker push strimoid/strm-js:${{ github.sha }}

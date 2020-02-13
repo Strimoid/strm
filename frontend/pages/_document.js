@@ -19,7 +19,7 @@ export default class IntlDocument extends Document {
     return (
       <html>
         <Head />
-        <body>
+        <body className="bg-gray-100">
           <Main />
           <script
             dangerouslySetInnerHTML={{

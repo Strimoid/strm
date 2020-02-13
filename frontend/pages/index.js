@@ -4,7 +4,7 @@ import ContentList from '../components/content/ContentList';
 
 export default function Index() {
   return (
-    <div className="container mx-auto">
+    <div className="container bg-white mx-auto">
       <Header />
       <ContentList />
     </div>

@@ -4,9 +4,8 @@ defmodule StrmWeb.Resolvers.Contents do
     {:ok, Strm.Contents.find_content(id)}
   end
 
-  @spec list_contents(any, any, any) :: {:ok, any}
-  def list_contents(_parent, _args, _resolution) do
-    {:ok, Strm.Contents.list_contents()}
+  def list_contents(_parent, args, _resolution) do
+    {:ok, Strm.Contents.list_contents(args[:cursor])}
   end
 
 end

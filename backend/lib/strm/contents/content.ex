@@ -4,6 +4,7 @@ defmodule Strm.Contents.Content do
   schema "contents" do
     field :title, :string
     field :description, :string
+    field :thumbnail, :string
 
     field :uv, :integer
     field :dv, :integer

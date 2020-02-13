@@ -1,11 +1,12 @@
-import EntryForm from '../components/entry/EntryForm';
-import EntryList from '../components/entry/EntryList';
+import Header from '../components/header/Header'
+import ContentList from '../components/content/ContentList';
+
 
 export default function Index() {
   return (
     <div className="container mx-auto">
-      <EntryForm />
-      <EntryList />
+      <Header />
+      <ContentList />
     </div>
   );
 }

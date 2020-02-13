@@ -2,8 +2,11 @@ defmodule StrmWeb.Schema.ContentTypes do
   use Absinthe.Schema.Notation
 
   object :content do
+    field :id, :id
+    field :created_at, :naive_datetime
     field :title, :string
     field :description, :string
+    field :thumbnail, :string
     field :uv, :integer
     field :dv, :integer
     field :group, :group

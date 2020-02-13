@@ -4,7 +4,6 @@ defmodule StrmWeb.Resolvers.Entries do
     {:ok, Strm.Entries.find_entry(id)}
   end
 
-  @spec list_entries(any, any, any) :: {:ok, any}
   def list_entries(_parent, args, _resolution) do
     {:ok, Strm.Entries.list_entries(args[:cursor])}
   end

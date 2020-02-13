@@ -10,6 +10,7 @@ defmodule StrmWeb.Schema do
 
     @desc "Get all contents"
     field :contents, list_of(:content) do
+      arg :cursor, :string
       resolve &Resolvers.Contents.list_contents/3
     end
 

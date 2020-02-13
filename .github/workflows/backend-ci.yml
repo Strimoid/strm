@@ -6,11 +6,8 @@ on:
     - 'backend/**'
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Log into Docker Hub
@@ -21,3 +18,11 @@ jobs:
       run: docker build backend --tag strimoid/strm:${{ github.sha }}
     - name: Push the Docker image
       run: docker push strimoid/strm:${{ github.sha }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Kubernetes credentials
+      run: mkdir ~/.kube && echo $K8S_CONFIG | base64 -d > ~/.kube/config
+    - name: Upgrade Kubernetes deployment
+      run: kubectl set image deployment/strm strm=strimoid/strm:${{ github.sha }}

@@ -23,6 +23,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Setup Kubernetes credentials
-      run: mkdir ~/.kube && echo $K8S_CONFIG | base64 -d > $HOME/.kube/config
+      run: mkdir $HOME/.kube; echo $K8S_CONFIG | base64 -d > $HOME/.kube/config
+      env:
+        K8S_CONFIG: ${{ secrets.K8S_CONFIG }}
     - name: Upgrade Kubernetes deployment
-      run: kubectl set image deployment/strm-js strm=strimoid/strm-js:${{ github.sha }}
+      run: kubectl set image deployment/strm-js strm-js=strimoid/strm-js:${{ github.sha }}

@@ -9,6 +9,8 @@ const GET_CONTENTS = gql`
       title
       description
       thumbnail
+      uv
+      dv
       group {
         urlname
       }

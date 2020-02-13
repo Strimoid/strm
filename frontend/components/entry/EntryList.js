@@ -7,6 +7,8 @@ const GET_ENTRIES = gql`
     entries(cursor: $cursor) {
       text
       createdAt
+      uv
+      dv
       group {
         urlname
       }

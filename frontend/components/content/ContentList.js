@@ -5,12 +5,14 @@ import ContentCard from "./ContentCard";
 const GET_CONTENTS = gql`
   query getContents($cursor: String) {
     contents(cursor: $cursor) {
+      id
       createdAt
       title
       description
       thumbnail
       uv
       dv
+      comments_count
       group {
         urlname
       }

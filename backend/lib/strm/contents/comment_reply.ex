@@ -1,7 +1,7 @@
 defmodule Strm.Contents.CommentReply do
   use Ecto.Schema
 
-  schema "comments_replies" do
+  schema "comment_replies" do
     field :text, :string
     field :text_source, :string
 

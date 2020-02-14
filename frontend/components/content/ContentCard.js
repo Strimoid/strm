@@ -1,3 +1,6 @@
+import Link from 'next/link'
+import FormattedRelative from '../intl/FormattedRelative'
+
 export default (props) => (
     <div className="rounded overflow-hidden shadow-sm my-2 px-4 py-6 flex w-full text-sm">
         <div className="flex-none flex flex-col mr-4">
@@ -16,8 +19,15 @@ export default (props) => (
         }
         
         <div>
-            <h3 className="text-base font-medium">{props.content.title}</h3>
+            <h3 className="text-base font-medium">
+                <Link href={`/c/${props.content.id}`}>
+                    <a>{props.content.title}</a>
+                </Link>
+            </h3>
             <p className="text-gray-700 mt-2">{props.content.description}</p>
+            <p className="text-gray-600 mt-2 text-xs">
+                {props.content.comments_count} comments | added <FormattedRelative date={props.content.createdAt} />
+            </p>
         </div>
     </div>
 );

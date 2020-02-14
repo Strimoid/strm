@@ -4,9 +4,20 @@ defmodule Strm.Contents do
   alias Strm.Repo
   alias Strm.Contents.Content
   alias Strm.Contents.Comment
+  alias Strm.Contents.CommentReply
 
   def find_content(id) do
-    Content |> Repo.get(id)
+    replies_query = from r in CommentReply,
+      order_by: r.created_at,
+      preload: [:user]
+
+    comments_query = from c in Comment,
+      order_by: c.created_at,
+      preload: [replies: ^replies_query, user: []]
+
+    Content
+      |> Repo.get(id)
+      |> Repo.preload([comments: comments_query, group: [], user: []])
   end
 
   def list_contents(cursor \\ nil) do

@@ -9,8 +9,8 @@ import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl'
 
 const client = new ApolloClient({
   link: new HttpLink({
-    uri: 'https://new.strm.pl/api',
-    //uri: 'http://localhost:4000/api',
+    //uri: 'https://new.strm.pl/api',
+    uri: 'http://localhost:4000/api',
     credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
     fetch: !process.browser && fetch
   }),

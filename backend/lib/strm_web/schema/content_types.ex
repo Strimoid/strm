@@ -12,6 +12,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :group, :group
     field :user, :user
     field :comments, list_of(:comment)
+    field :comments_count, :integer
   end
 
   object :comment do
@@ -22,7 +23,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :text, :string
     field :content, :content
     field :replies, list_of(:comment_reply)
-    fielld :user, :user
+    field :user, :user
   end
 
   object :comment_reply do
@@ -32,6 +33,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :dv, :integer
     field :text, :string
     field :comment, :comment
+    field :user, :user
   end
 
   object :entry do

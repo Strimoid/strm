@@ -39,6 +39,7 @@ defmodule StrmWeb.Schema do
 
     @desc "Get all groups"
     field :groups, list_of(:group) do
+      arg :cursor, :string
       resolve &Resolvers.Groups.list_groups/3
     end
 

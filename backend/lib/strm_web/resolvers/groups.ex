@@ -4,9 +4,8 @@ defmodule StrmWeb.Resolvers.Groups do
     {:ok, Strm.Groups.find_group(id)}
   end
 
-  @spec list_groups(any, any, any) :: {:ok, any}
-  def list_groups(_parent, _args, _resolution) do
-    {:ok, Strm.Groups.list_groups()}
+  def list_groups(_parent, args, _resolution) do
+    {:ok, Strm.Groups.list_groups(args[:cursor])}
   end
 
 end

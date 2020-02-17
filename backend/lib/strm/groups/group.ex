@@ -12,5 +12,7 @@ defmodule Strm.Groups.Group do
     has_many :contents, Strm.Contents.Content
     has_many :comments, Strm.Contents.Comment
     has_many :entries, Strm.Entries.Entry
+
+    timestamps([type: :utc_datetime, inserted_at: :created_at])
   end
 end

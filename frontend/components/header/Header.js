@@ -15,7 +15,7 @@ function Header({ token }) {
     const { loading, error, data } = useQuery(GET_ME);
 
     return (
-        <header className="w-full bg-blue-600 text-blue-500 px-4 pt-4 pb-0 mb-4 border-box">
+        <header className="w-full bg-blue-600 text-blue-500 px-4 pt-4 pb-0 mb-4 flex">
             <Link href="/">
                 <a className="bg-white px-4 py-2 mr-4">
                     <FormattedMessage id="header.contents" defaultMessage="Contents" />
@@ -28,8 +28,8 @@ function Header({ token }) {
             </Link>
     
             { data
-                ? <a className="bg-white px-4 py-2 float-right">{data.me.name}</a>
-                : <Link href="/sign-in"><a className="bg-white px-4 py-2 float-right"><FormattedMessage id="header.sign-in" defaultMessage="Sign in" /></a></Link>
+                ? <a className="bg-white px-4 py-2 ml-auto">{data.me.name}</a>
+                : <Link href="/sign-in"><a className="bg-white px-4 py-2 ml-auto"><FormattedMessage id="header.sign-in" defaultMessage="Sign in" /></a></Link>
             }
             
         </header>

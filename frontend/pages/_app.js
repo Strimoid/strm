@@ -6,11 +6,11 @@ import { ApolloProvider } from '@apollo/react-hooks';
 // import { IntlProvider } from 'react-intl';
 import fetch from 'isomorphic-unfetch';
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl'
+import Config from '../config'
 
 const client = new ApolloClient({
   link: new HttpLink({
-    //uri: 'https://new.strm.pl/api',
-    uri: 'http://localhost:4000/api',
+    uri: Config.apiUri,
     credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
     fetch: !process.browser && fetch
   }),

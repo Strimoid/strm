@@ -38,7 +38,7 @@ export default () => {
 
   return (
     <div>
-      { data.entries.map(entry => <EntryCard entry={entry} />) }
+      { data.entries.map(entry => <EntryCard key={entry.id} entry={entry} />) }
 
       <button
         className="rounded shadow w-full py-4 my-8 bg-blue-500 hover:bg-blue-700 text-white"

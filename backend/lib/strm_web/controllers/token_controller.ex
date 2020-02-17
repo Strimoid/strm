@@ -15,7 +15,7 @@ defmodule StrmWeb.TokenController do
     else
       conn
         |> put_status(:bad_request)
-        |> json(%{error: "Invalid username or password"})
+        |> json(%{error: "invalid-credentials"})
     end
   end
 end

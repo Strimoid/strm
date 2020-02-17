@@ -3,16 +3,19 @@ import '../css/styles.css'
 import App from 'next/app'
 import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-// import { IntlProvider } from 'react-intl';
 import fetch from 'isomorphic-unfetch';
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl'
+import cookies from 'next-cookies'
 import Config from '../config'
 
-const client = new ApolloClient({
+const createClient = token => new ApolloClient({
   link: new HttpLink({
     uri: Config.apiUri,
     credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
-    fetch: !process.browser && fetch
+    fetch: !process.browser && fetch,
+    headers: {
+      Authorization: token ? `Bearer ${token}` : ''
+    }
   }),
   cache: new InMemoryCache()
 });
@@ -31,12 +34,13 @@ export default class MyApp extends App {
     // In the browser, use the same values that the server serialized.
     const { req } = ctx
     const { locale, messages } = req || window.__NEXT_DATA__.props
+    const { token } = cookies(ctx)
 
-    return { pageProps, locale, messages }
+    return { pageProps, locale, messages, token }
   }
 
   render() {
-    const { Component, pageProps, locale, messages } = this.props
+    const { Component, pageProps, locale, messages, token } = this.props
 
     const intl = createIntl(
       {
@@ -48,23 +52,10 @@ export default class MyApp extends App {
 
     return (
       <RawIntlProvider value={intl}>
-        <ApolloProvider client={client}>
+        <ApolloProvider client={createClient(token)}>
           <Component {...pageProps} />
         </ApolloProvider>
       </RawIntlProvider>
     )
   }
 }
-
-/*
-export default function MyApp({ Component, pageProps }) {
-  return (
-    <ApolloProvider client={client}>
-      <IntlProvider locale={navigator.language}>
-        <Component {...pageProps} />
-      </IntlProvider>
-    </ApolloProvider>
-  )
-}
-
-*/

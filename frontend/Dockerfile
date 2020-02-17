@@ -1,5 +1,7 @@
 FROM node:13-alpine
 
+ENV NODE_ENV production
+
 RUN mkdir /src
 WORKDIR /src
 

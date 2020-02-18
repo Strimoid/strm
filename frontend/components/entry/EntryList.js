@@ -32,6 +32,15 @@ const ENTRIES_QUERY = gql`
   }
 `
 
+const SUBSCRIBE_ENTRIES = gql`
+  subscription onEntryCreated {
+    entryCreated {
+      id
+      text
+    }
+  }
+`;
+
 export default ({ group }) => {
   const { loading, error, data, fetchMore } = useQuery(ENTRIES_QUERY, {
     variables: { cursor: null, group: group }
@@ -39,6 +48,21 @@ export default ({ group }) => {
 
   if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
+
+  const subscription = subscribeToMore({
+    document: SUBSCRIBE_ENTRIES,
+    updateQuery: (prev, { subscriptiondData }) => {
+      if (!subscriptiondData.data) return prev;
+
+      const newFeedItem = subscriptionData.data.entryCreated;
+
+      return Object.assign({}, prev, {
+        entries: [newFeedItem, ...prev.entries]
+      });
+    }
+  })
+
+  subscription();
 
   return (
     <div>

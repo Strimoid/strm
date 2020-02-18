@@ -1,5 +1,6 @@
 defmodule StrmWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :strm
+  use Absinthe.Phoenix.Endpoint
 
   socket "/socket", StrmWeb.UserSocket,
     websocket: true,

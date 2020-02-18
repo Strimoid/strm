@@ -66,4 +66,17 @@ defmodule StrmWeb.Schema do
     end
   end
 
+  subscription do
+    field :entry_created, :entry do
+      config fn args, _ ->
+        {:ok, topic: "entries"}
+      end
+
+      trigger :create_entry, topic: fn entry ->
+        "entries"
+      end
+
+    end
+  end
+
 end

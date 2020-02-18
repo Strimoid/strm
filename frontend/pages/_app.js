@@ -1,24 +1,9 @@
 import '../css/styles.css'
-
 import App from 'next/app'
-import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost'
-import { ApolloProvider } from '@apollo/react-hooks'
-import fetch from 'isomorphic-unfetch'
+import { ApolloProvider } from '@apollo/react-hooks';
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl'
 import cookies from 'next-cookies'
-import Config from '../config'
-
-const createClient = token => new ApolloClient({
-  link: new HttpLink({
-    uri: Config.apiUri,
-    credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
-    fetch: !process.browser && fetch,
-    headers: {
-      Authorization: token ? `Bearer ${token}` : ''
-    }
-  }),
-  cache: new InMemoryCache()
-})
+import createApolloClient from '../lib/apollo'
 
 const intlCache = createIntlCache()
 
@@ -52,7 +37,7 @@ export default class MyApp extends App {
 
     return (
       <RawIntlProvider value={intl}>
-        <ApolloProvider client={createClient(token)}>
+        <ApolloProvider client={createApolloClient(token)}>
           <Component {...pageProps} />
         </ApolloProvider>
       </RawIntlProvider>

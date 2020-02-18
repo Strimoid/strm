@@ -11,9 +11,10 @@ defmodule Strm.Application do
       # Start the Ecto repository
       Strm.Repo,
       # Start the endpoint when the application starts
-      StrmWeb.Endpoint
+      StrmWeb.Endpoint,
       # Starts a worker by calling: Strm.Worker.start_link(arg)
       # {Strm.Worker, arg},
+      { Absinthe.Subscription, [StrmWeb.Endpoint] }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

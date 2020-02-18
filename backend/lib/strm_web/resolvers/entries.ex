@@ -13,7 +13,7 @@ defmodule StrmWeb.Resolvers.Entries do
   end
 
   def create_entry(_parent, args, %{context: %{current_user: user}}) do
-    group = Strm.Groups.get_group_by_slug(args[:group])
+    group = Strm.Groups.find_group(args[:group])
     Strm.Entries.create_entry(user, group, args)
   end
   def create_entry(_parent, _args, _resolution) do

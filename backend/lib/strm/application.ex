@@ -14,7 +14,7 @@ defmodule Strm.Application do
       StrmWeb.Endpoint,
       # Starts a worker by calling: Strm.Worker.start_link(arg)
       # {Strm.Worker, arg},
-      { Absinthe.Subscription, [StrmWeb.Endpoint] }
+      { Absinthe.Subscription, StrmWeb.Endpoint }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

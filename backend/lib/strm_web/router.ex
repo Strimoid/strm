@@ -15,7 +15,8 @@ defmodule StrmWeb.Router do
     resources "/tokens", StrmWeb.TokenController, only: [:create]
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
-      schema: StrmWeb.Schema
+      schema: StrmWeb.Schema,
+      socket: StrmWeb.UserSocket
 
     forward "/", Absinthe.Plug,
       schema: StrmWeb.Schema

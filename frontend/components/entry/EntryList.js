@@ -1,6 +1,7 @@
-import { useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
-import EntryCard from './EntryCard'
+import { useEffect } from 'react'
+import { useQuery } from '@apollo/react-hooks';
+import gql from "graphql-tag";
+import EntryCard from "./EntryCard";
 
 const ENTRIES_QUERY = gql`
   query getEntries($group: ID!, $cursor: String) {
@@ -37,6 +38,16 @@ const SUBSCRIBE_ENTRIES = gql`
     entryCreated {
       id
       text
+      createdAt
+      uv
+      dv
+      group {
+        urlname
+      }
+      user {
+        name
+        avatar
+      }
     }
   }
 `;
@@ -46,23 +57,23 @@ export default ({ group }) => {
     variables: { cursor: null, group: group }
   })
 
-  if (loading) return 'Loading...'
-  if (error) return `Error! ${error.message}`
-
   const subscription = subscribeToMore({
     document: SUBSCRIBE_ENTRIES,
-    updateQuery: (prev, { subscriptiondData }) => {
-      if (!subscriptiondData.data) return prev;
+    updateQuery: (prev, { subscriptionData }) => {
+      if (!subscriptionData.data) return prev;
 
-      const newFeedItem = subscriptionData.data.entryCreated;
+      const newFeedItem = { ...subscriptionData.data.entryCreated, replies: []};
 
-      return Object.assign({}, prev, {
-        entries: [newFeedItem, ...prev.entries]
-      });
+      return { ...prev, entries: [newFeedItem, ...prev.entries]};
     }
   })
 
-  subscription();
+  useEffect(() => {
+    subscription();
+  }, []);
+
+  if (loading) return "Loading...";
+  if (error) return `Error! ${error.message}`;
 
   return (
     <div>

@@ -1,9 +1,8 @@
-import {selectUnit} from '@formatjs/intl-utils';
-import {FormattedRelativeTime} from 'react-intl';
+import { selectUnit } from '@formatjs/intl-utils'
+import { FormattedRelativeTime } from 'react-intl'
 
 export default (props) => {
-    const {value, unit} = selectUnit(new Date(props.date));
+  const { value, unit } = selectUnit(new Date(props.date))
 
-    return <FormattedRelativeTime value={value} unit={unit} />;
-  };
-  
+  return <FormattedRelativeTime value={value} unit={unit} />
+}

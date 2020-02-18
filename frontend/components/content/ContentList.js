@@ -1,7 +1,6 @@
-import { useQuery } from '@apollo/react-hooks';
-import gql from "graphql-tag";
-import { fragment } from './ContentCard'
-import ContentCard from "./ContentCard";
+import { useQuery } from '@apollo/react-hooks'
+import gql from 'graphql-tag'
+import ContentCard, { fragment } from './ContentCard'
 
 const CONTENTS_QUERY = gql`
 query getContents($group: ID!, $cursor: String) {
@@ -12,23 +11,23 @@ query getContents($group: ID!, $cursor: String) {
   }
 }
 ${fragment}
-`;
+`
 
 export default ({ group }) => {
   const { loading, error, data, fetchMore } = useQuery(CONTENTS_QUERY, {
     variables: { cursor: null, group: group }
-  });
+  })
 
-  if (loading) return "Loading...";
-  if (error) return `Error! ${error.message}`;
+  if (loading) return 'Loading...'
+  if (error) return `Error! ${error.message}`
 
   return (
     <div>
-      { data.group.contents.map(content => <ContentCard key={content.id} content={content} />) }
+      {data.group.contents.map(content => <ContentCard key={content.id} content={content} />)}
 
       <button
-        className="rounded shadow w-full py-4 my-8 bg-blue-500 hover:bg-blue-700 text-white"
-        onClick={ () =>
+        className='rounded shadow w-full py-4 my-8 bg-blue-500 hover:bg-blue-700 text-white'
+        onClick={() =>
           fetchMore({
             variables: { cursor: data.group.contents.slice(-1)[0].createdAt },
             updateQuery: (previous, { fetchMoreResult }) => {
@@ -41,13 +40,12 @@ export default ({ group }) => {
                     ...fetchMoreResult.group.contents
                   ]
                 }
-              };
+              }
             }
-          })
-        }
+          })}
       >
         Show more contents
       </button>
     </div>
-  );
-};
+  )
+}

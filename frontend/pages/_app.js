@@ -1,9 +1,9 @@
 import '../css/styles.css'
 
 import App from 'next/app'
-import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost';
-import { ApolloProvider } from '@apollo/react-hooks';
-import fetch from 'isomorphic-unfetch';
+import { ApolloClient, InMemoryCache, HttpLink } from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks'
+import fetch from 'isomorphic-unfetch'
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl'
 import cookies from 'next-cookies'
 import Config from '../config'
@@ -18,12 +18,12 @@ const createClient = token => new ApolloClient({
     }
   }),
   cache: new InMemoryCache()
-});
+})
 
 const intlCache = createIntlCache()
 
 export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps ({ Component, ctx }) {
     let pageProps = {}
 
     if (Component.getInitialProps) {
@@ -39,13 +39,13 @@ export default class MyApp extends App {
     return { pageProps, locale, messages, token }
   }
 
-  render() {
+  render () {
     const { Component, pageProps, locale, messages, token } = this.props
 
     const intl = createIntl(
       {
         locale,
-        messages,
+        messages
       },
       intlCache
     )

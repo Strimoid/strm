@@ -5,7 +5,10 @@ defmodule Strm.Groups do
   alias Strm.Groups.Group
 
   def find_group(id) do
-    Group |> Repo.get_by(urlname: id)
+    case id do
+      "all" -> Strm.Groups.Predefined.All
+      id    -> Group |> Repo.get_by(urlname: id)
+    end
   end
 
   def list_groups(cursor \\ nil) do

@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <div className="container bg-white mx-auto">
       <Header />
-      <ContentList />
+      <ContentList group="all" />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 defmodule Strm.Entries do
   import Ecto.Query
+  import Strm.Common.Query
 
   alias Strm.Repo
   alias Strm.Entries.Entry
@@ -9,12 +10,13 @@ defmodule Strm.Entries do
     Entry |> Repo.get(id)
   end
 
-  def list_entries(cursor \\ nil) do
+  def list_entries(group \\ nil, cursor \\ nil) do
     replies_query = from r in EntryReply,
       order_by: r.created_at,
       preload: [:user]
 
     Entry
+      |> filter_by_group(group)
       |> limit(10)
       |> order_by([desc: :created_at])
       |> without_private()
@@ -28,24 +30,4 @@ defmodule Strm.Entries do
       |> Entry.changeset(args)
       |> Repo.insert
   end
-
-  defp without_private(query) do
-    query
-    |> join(:left, [e], g in assoc(e, :group))
-    |> where([e, g], g.type == "public")
-  end
-
-  defp paginate(query, cursor) do
-    case cursor do
-      nil    -> query
-      cursor -> query |> older_than(cursor)
-    end
-  end
-
-  defp older_than(query, cursor) do
-    {:ok, date} = cursor |> NaiveDateTime.from_iso8601
-    {:ok, date} = date |> DateTime.from_naive("Etc/UTC")
-    query |> where([e], e.created_at < ^date)
-  end
-
 end

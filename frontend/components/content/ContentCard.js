@@ -1,5 +1,26 @@
 import Link from 'next/link'
 import FormattedRelative from '../intl/FormattedRelative'
+import gql from 'graphql-tag'
+
+export const fragment = gql`
+fragment ContentCardFields on Content {
+    id
+    createdAt
+    title
+    description
+    thumbnail
+    uv
+    dv
+    comments_count
+    group {
+      urlname
+    }
+    user {
+      name
+      avatar
+    }
+  }
+`
 
 export default (props) => (
     <div className="rounded overflow-hidden shadow-sm my-2 px-4 py-6 flex w-full text-sm">

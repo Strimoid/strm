@@ -4,8 +4,12 @@ defmodule StrmWeb.Resolvers.Entries do
     {:ok, Strm.Entries.find_entry(id)}
   end
 
+  def list_entries(%Strm.Groups.Group{} = group, args, _resolution) do
+    {:ok, Strm.Entries.list_entries(group.id, args[:cursor])}
+  end
+
   def list_entries(_parent, args, _resolution) do
-    {:ok, Strm.Entries.list_entries(args[:cursor])}
+    {:ok, Strm.Entries.list_entries(nil, args[:cursor])}
   end
 
   def create_entry(_parent, args, %{context: %{current_user: user}}) do

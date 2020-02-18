@@ -1,4 +1,5 @@
 import Header from '../../components/header/Header'
+import { fragment } from '../../components/content/ContentCard'
 import ContentCard from '../../components/content/ContentCard'
 import CommentCard from '../../components/content/CommentCard'
 import { useRouter } from 'next/router'
@@ -8,19 +9,7 @@ import gql from "graphql-tag";
 const GET_CONTENT = gql`
   query getContent($id: String) {
     content(id: $id) {
-      createdAt
-      title
-      description
-      thumbnail
-      uv
-      dv
-      group {
-        urlname
-      }
-      user {
-        name
-        avatar
-      }
+      ...ContentCardFields
       comments {
           createdAt
           text
@@ -39,30 +28,30 @@ const GET_CONTENT = gql`
       }
     }
   }
+  ${fragment}
 `;
 
 export default function Content() {
-    const router = useRouter()
-    const { id } = router.query
+  const router = useRouter()
+  const { id } = router.query
 
-    const { loading, error, data, fetchMore } = useQuery(GET_CONTENT, {
-        variables: { id }
-      });
-    
-      if (loading) return "Loading...";
-      if (error) return `Error! ${error.message}`;
+  const { loading, error, data, fetchMore } = useQuery(GET_CONTENT, {
+    variables: { id }
+  });
 
-    return (
-      <div className="container bg-white mx-auto">
-        <Header />
-        <ContentCard content={data.content} />
+  if (loading) return "Loading...";
+  if (error) return `Error! ${error.message}`;
 
-        <div className="px-4 py-4 mb-4">
-            <h2 className="text-xl mb-2">Comments</h2>
+  return (
+    <div className="container bg-white mx-auto">
+      <Header />
+      <ContentCard content={data.content} />
 
-            {data.content.comments.map(comment => <CommentCard comment={comment} />)}
-        </div>
+      <div className="px-4 py-4 mb-4">
+        <h2 className="text-xl mb-2">Comments</h2>
+
+        {data.content.comments.map(comment => <CommentCard comment={comment} />)}
       </div>
-    );
-  }
-  
+    </div>
+  );
+}

@@ -2,35 +2,37 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
 import EntryCard from "./EntryCard";
 
-const GET_ENTRIES = gql`
-  query getEntries($cursor: String) {
-    entries(cursor: $cursor) {
-      text
-      createdAt
-      uv
-      dv
-      group {
-        urlname
-      }
-      user {
-        name
-        avatar
-      }
-      replies {
-          text
-          createdAt
-          user {
-              name
-              avatar
-          }
+const ENTRIES_QUERY = gql`
+  query getEntries($group: ID!, $cursor: String) {
+    group(id: $group) {
+      entries(cursor: $cursor) {
+        text
+        createdAt
+        uv
+        dv
+        group {
+          urlname
+        }
+        user {
+          name
+          avatar
+        }
+        replies {
+            text
+            createdAt
+            user {
+                name
+                avatar
+            }
+        }
       }
     }
   }
 `;
 
-export default () => {
-  const { loading, error, data, fetchMore } = useQuery(GET_ENTRIES, {
-    variables: { cursor: null }
+export default ({ group }) => {
+  const { loading, error, data, fetchMore } = useQuery(ENTRIES_QUERY, {
+    variables: { cursor: null, group: group }
   });
 
   if (loading) return "Loading...";
@@ -38,22 +40,20 @@ export default () => {
 
   return (
     <div>
-      { data.entries.map(entry => <EntryCard key={entry.id} entry={entry} />) }
+      { data.group.entries.map(entry => <EntryCard key={entry.id} entry={entry} />) }
 
       <button
         className="rounded shadow w-full py-4 my-8 bg-blue-500 hover:bg-blue-700 text-white"
         onClick={ () =>
           fetchMore({
-            variables: { cursor: data.entries.slice(-1)[0].createdAt },
-            updateQuery: (previousResult, { fetchMoreResult }) => {
-              const previousEntries = previousResult.entries;
-              const newEntries = fetchMoreResult.entries;
-              const newCursor = newEntries.slice(-1)[0].createdAt;
-  
+            variables: { cursor: data.group.entries.slice(-1)[0].createdAt },
+            updateQuery: (previous, { fetchMoreResult }) => {
               return {
-                cursor: newCursor,
-                entries: [...previousEntries, ...newEntries],
-                __typename: previousEntries.__typename
+                ...previous,
+                group: {
+                  ...previous.group,
+                  entries: [...previous.group.entries, ...fetchMoreResult.group.entries]
+                }
               };
             }
           })

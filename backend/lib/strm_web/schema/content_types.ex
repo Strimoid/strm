@@ -1,5 +1,6 @@
 defmodule StrmWeb.Schema.ContentTypes do
   use Absinthe.Schema.Notation
+  alias StrmWeb.Resolvers
 
   object :content do
     field :id, :id
@@ -63,8 +64,14 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :avatar, :string
     field :description, :string
     field :creator, :user
-    field :contents, list_of(:content)
-    field :entries, list_of(:entry)
+    field :contents, list_of(:content) do
+      arg :cursor, :string
+      resolve &Resolvers.Contents.list_contents/3
+    end
+    field :entries, list_of(:entry) do
+      arg :cursor, :string
+      resolve &Resolvers.Entries.list_entries/3
+    end
   end
 
   object :user do

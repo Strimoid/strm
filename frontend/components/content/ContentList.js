@@ -1,32 +1,22 @@
 import { useQuery } from '@apollo/react-hooks';
 import gql from "graphql-tag";
+import { fragment } from './ContentCard'
 import ContentCard from "./ContentCard";
 
-const GET_CONTENTS = gql`
-  query getContents($cursor: String) {
+const CONTENTS_QUERY = gql`
+query getContents($group: ID!, $cursor: String) {
+  group(id: $group) {
     contents(cursor: $cursor) {
-      id
-      createdAt
-      title
-      description
-      thumbnail
-      uv
-      dv
-      comments_count
-      group {
-        urlname
-      }
-      user {
-        name
-        avatar
-      }
+      ...ContentCardFields
     }
   }
+}
+${fragment}
 `;
 
-export default () => {
-  const { loading, error, data, fetchMore } = useQuery(GET_CONTENTS, {
-    variables: { cursor: null }
+export default ({ group }) => {
+  const { loading, error, data, fetchMore } = useQuery(CONTENTS_QUERY, {
+    variables: { cursor: null, group: group }
   });
 
   if (loading) return "Loading...";
@@ -34,22 +24,23 @@ export default () => {
 
   return (
     <div>
-      { data.contents.map(content => <ContentCard key={content.id} content={content} />) }
+      { data.group.contents.map(content => <ContentCard key={content.id} content={content} />) }
 
       <button
         className="rounded shadow w-full py-4 my-8 bg-blue-500 hover:bg-blue-700 text-white"
         onClick={ () =>
           fetchMore({
-            variables: { cursor: data.contents.slice(-1)[0].createdAt },
-            updateQuery: (previousResult, { fetchMoreResult }) => {
-              const previousContents = previousResult.contents;
-              const newContents = fetchMoreResult.contents;
-              const newCursor = newContents.slice(-1)[0].createdAt;
-  
+            variables: { cursor: data.group.contents.slice(-1)[0].createdAt },
+            updateQuery: (previous, { fetchMoreResult }) => {
               return {
-                cursor: newCursor,
-                contents: [...previousContents, ...newContents],
-                __typename: previousContents.__typename
+                ...previous,
+                group: {
+                  ...previous.group,
+                  contents: [
+                    ...previous.group.contents,
+                    ...fetchMoreResult.group.contents
+                  ]
+                }
               };
             }
           })

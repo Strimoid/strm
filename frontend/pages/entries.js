@@ -8,7 +8,7 @@ export default function Entries() {
       <Header />
       <div className="px-4">
         <EntryForm />
-        <EntryList />
+        <EntryList group="all" />
       </div>
     </div>
         

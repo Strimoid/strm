@@ -4,7 +4,7 @@ defmodule StrmWeb.Resolvers.Users do
     {:ok, current_user}
   end
   def get_user(_parent, _args, _context) do
-    {:ok, {}}
+    {:ok, %Strm.Users.User{}}
   end
 
 end

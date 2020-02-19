@@ -40,7 +40,13 @@ defmodule StrmWeb.Schema do
     @desc "Get all groups"
     field :groups, list_of(:group) do
       arg :cursor, :string
+      arg :order_by, :string
       resolve &Resolvers.Groups.list_groups/3
+    end
+
+    @desc "Get the most popular groups"
+    field :popular_groups, list_of(:group) do
+      resolve &Resolvers.Groups.list_popular_groups/3
     end
 
     @desc "Get a single group"

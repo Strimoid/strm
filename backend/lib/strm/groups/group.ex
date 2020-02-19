@@ -2,10 +2,12 @@ defmodule Strm.Groups.Group do
   use Ecto.Schema
 
   schema "groups" do
+    field :avatar, :string
     field :name, :string
     field :urlname, :string
     field :description, :string
     field :type, :string
+    field :subscribers_count, :integer
 
     belongs_to :creator, Strm.Users.User
 

@@ -1,5 +1,6 @@
 import Header from '../../components/header/Header'
 import ContentList from '../../components/content/ContentList'
+import WithSidebar from '../../components/sidebar/with-sidebar'
 import { useRouter } from 'next/router'
 
 export default function Index () {
@@ -9,7 +10,9 @@ export default function Index () {
   return (
     <div className='container bg-white mx-auto'>
       <Header />
-      <ContentList group={id} />
+      <WithSidebar>
+        <ContentList group={id} />
+      </WithSidebar>
     </div>
   )
 }

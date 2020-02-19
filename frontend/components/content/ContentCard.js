@@ -23,7 +23,7 @@ fragment ContentCardFields on Content {
 `
 
 export default (props) => (
-  <div className='rounded overflow-hidden shadow-sm my-2 px-4 py-6 flex w-full text-sm'>
+  <div className='rounded overflow-hidden shadow-sm first:pt-0 px-4 py-6 flex w-full text-sm'>
     <div className='flex-none flex flex-col mr-4'>
       <button className='rounded w-16 h-8 border hover:bg-green-100'>
         {props.content.uv} <span className='font-black text-green-700'>￪</span>

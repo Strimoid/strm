@@ -1,5 +1,6 @@
 defmodule Strm.Groups do
   import Ecto.Query
+  import Strm.Common.Query
 
   alias Strm.Repo
   alias Strm.Groups.Group
@@ -20,17 +21,10 @@ defmodule Strm.Groups do
       |> Repo.preload([:creator])
   end
 
-  defp paginate(query, cursor) do
-    case cursor do
-      nil    -> query
-      cursor -> query |> older_than(cursor)
-    end
+  def list_popular_groups() do
+    Group
+      |> limit(100)
+      |> order_by([desc: :subscribers_count])
+      |> Repo.all()
   end
-
-  defp older_than(query, cursor) do
-    {:ok, date} = cursor |> NaiveDateTime.from_iso8601
-    {:ok, date} = date |> DateTime.from_naive("Etc/UTC")
-    query |> where([e], e.created_at < ^date)
-  end
-
 end

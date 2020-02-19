@@ -63,10 +63,10 @@ defmodule StrmWeb.Schema.ContentTypes do
   end
 
   object :group do
+    field :avatar, :string
     field :name, :string
     field :urlname, :string
     field :created_at, :naive_datetime
-    field :avatar, :string
     field :description, :string
     field :creator, :user
     field :contents, list_of(:content) do

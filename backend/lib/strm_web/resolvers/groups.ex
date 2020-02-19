@@ -8,4 +8,8 @@ defmodule StrmWeb.Resolvers.Groups do
     {:ok, Strm.Groups.list_groups(args[:cursor])}
   end
 
+  def list_popular_groups(_parent, _args, _resolution) do
+    {:ok, Strm.Groups.list_popular_groups()}
+  end
+
 end

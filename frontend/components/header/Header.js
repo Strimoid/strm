@@ -27,7 +27,7 @@ function Header ({ token }) {
         </a>
       </Link>
 
-      {data
+      {data && data.me.name
         ? <a className='bg-white px-4 py-2 ml-auto'>{data.me.name}</a>
         : <Link href='/sign-in'><a className='bg-white px-4 py-2 ml-auto'><FormattedMessage id='header.sign-in' defaultMessage='Sign in' /></a></Link>}
 

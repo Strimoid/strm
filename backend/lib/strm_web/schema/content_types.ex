@@ -10,6 +10,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :thumbnail, :string
     field :uv, :integer
     field :dv, :integer
+    field :votes, list_of(:vote)
     field :group, :group
     field :user, :user
     field :comments, list_of(:comment)
@@ -21,6 +22,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :created_at, :naive_datetime
     field :uv, :integer
     field :dv, :integer
+    field :votes, list_of(:vote)
     field :text, :string
     field :content, :content
     field :replies, list_of(:comment_reply)
@@ -32,6 +34,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :created_at, :naive_datetime
     field :uv, :integer
     field :dv, :integer
+    field :votes, list_of(:vote)
     field :text, :string
     field :comment, :comment
     field :user, :user
@@ -42,6 +45,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :created_at, :naive_datetime
     field :uv, :integer
     field :dv, :integer
+    field :votes, list_of(:vote)
     field :text, :string
     field :replies, list_of(:entry_reply)
     field :group, :group
@@ -53,6 +57,7 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :created_at, :naive_datetime
     field :uv, :integer
     field :dv, :integer
+    field :votes, list_of(:vote)
     field :text, :string
     field :user, :user
   end
@@ -77,5 +82,11 @@ defmodule StrmWeb.Schema.ContentTypes do
   object :user do
     field :avatar, :string
     field :name, :string
+  end
+
+  object :vote do
+    field :up, :boolean
+    field :user, :user
+    field :created_at, :naive_datetime
   end
 end

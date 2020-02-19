@@ -1,5 +1,6 @@
 defmodule Strm.Entries.Entry do
   use Ecto.Schema
+
   import Ecto.Changeset
 
   schema "entries" do
@@ -8,6 +9,9 @@ defmodule Strm.Entries.Entry do
 
     field :uv, :integer
     field :dv, :integer
+    has_many :votes, Strm.Votes.Vote,
+      foreign_key: :element_id,
+      where: [element_type: "Strimoid\\Models\\Entry"]
 
     has_many :replies, Strm.Entries.EntryReply, [foreign_key: :parent_id]
 

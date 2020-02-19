@@ -53,7 +53,7 @@ const SUBSCRIBE_ENTRIES = gql`
 `;
 
 export default ({ group }) => {
-  const { loading, error, data, fetchMore } = useQuery(ENTRIES_QUERY, {
+  const { loading, error, data, fetchMore, subscribeToMore } = useQuery(ENTRIES_QUERY, {
     variables: { cursor: null, group: group }
   })
 

@@ -7,6 +7,9 @@ defmodule Strm.Contents.Comment do
 
     field :uv, :integer
     field :dv, :integer
+    has_many :votes, Strm.Votes.Vote,
+      foreign_key: :element_id,
+      where: [element_type: "Strimoid\\Models\\Comment"]
 
     has_many :replies, Strm.Contents.CommentReply, [foreign_key: :parent_id]
 

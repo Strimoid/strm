@@ -29,6 +29,12 @@ defmodule Strm.Entries do
       |> Repo.insert
   end
 
+  def create_reply(user, entry, args) do
+    %EntryReply{user: user, entry: entry, group: entry.group, text_source: args[:text]}
+      |> Entry.changeset(args)
+      |> Repo.insert
+  end
+
   defp replies_query() do
     from r in EntryReply,
       order_by: r.created_at,

@@ -1,26 +1,33 @@
+import EntryCardHeader from './EntryCardHeader'
 import EntryReplyCard from './EntryReplyCard'
-import FormattedRelative from '../intl/FormattedRelative'
+import EntryReplyForm from './EntyReplyForm'
+import { useState } from 'react'
 
-export default (props) => (
-  <div className='rounded overflow-hidden shadow-md my-2 px-4 py-6 flex w-full text-sm'>
+export default ({ entry }) => {
+  const [isReplying, setIsReplying] = useState(false);
+
+  return (
+    <div className='rounded overflow-hidden shadow-md my-2 px-4 py-4 flex w-full text-sm'>
     <div className='flex-none'>
-      <img className='h-10 w-10' src={`https://strm.pl/i/avatars/${props.entry.user.avatar}`} />
+      <img className='h-10 w-10' src={`https://strm.pl/i/avatars/${entry.user.avatar}`} />
     </div>
 
     <div className='ml-4 flex-grow'>
-      <div className='mb-2 border-b'>
-        <span className='text-blue-600'>{props.entry.user.name}</span>
-        <span className='ml-4 text-gray-500'>{props.entry.group.urlname}</span>
-        <span className='float-right' alt={props.entry.createdAt}>
-          <FormattedRelative date={props.entry.createdAt} />
-        </span>
-      </div>
+      <EntryCardHeader entry={entry} />
 
-      <p dangerouslySetInnerHTML={{ __html: props.entry.text }} />
+      <p dangerouslySetInnerHTML={{ __html: entry.text }} />
 
-      {props.entry.replies.map(reply => (
+      <p className='text-xs text-blue-400 cursor-pointer mt-2'>
+        <a onClick={() => setIsReplying(!isReplying)}>reply</a>
+      </p>
+
+      {entry.replies.map(reply => (
         <EntryReplyCard key={reply.id} reply={reply} />
       ))}
+
+      {isReplying ? <div className='mt-4'><EntryReplyForm entry={entry} /></div> : ''}
     </div>
   </div>
-)
+  )
+}
+

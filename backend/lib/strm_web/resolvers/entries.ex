@@ -20,4 +20,12 @@ defmodule StrmWeb.Resolvers.Entries do
     {:error, "Access denied"}
   end
 
+  def create_reply(_parent, args, %{context: %{current_user: user}}) do
+    entry = Strm.Entries.find_entry(args[:entry])
+    Strm.Entries.create_reply(user, entry, args)
+  end
+  def create_reply(_parent, _args, _resolution) do
+    {:error, "Access denied"}
+  end
+
 end

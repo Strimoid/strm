@@ -70,6 +70,14 @@ defmodule StrmWeb.Schema do
 
       resolve &Resolvers.Entries.create_entry/3
     end
+
+    @desc "Create an entry reply"
+    field :create_entry_reply, type: :entry_reply do
+      arg :text, non_null(:string)
+      arg :entry, non_null(:string)
+
+      resolve &Resolvers.Entries.create_reply/3
+    end
   end
 
   subscription do

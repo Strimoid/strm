@@ -5,13 +5,13 @@ import { useRouter } from 'next/router'
 
 export default function Index () {
   const router = useRouter()
-  const { id } = router.query
+  const { gid } = router.query
 
   return (
     <div className='container bg-white mx-auto'>
       <Header />
       <WithSidebar>
-        <ContentList group={id} />
+        <ContentList group={gid} />
       </WithSidebar>
     </div>
   )

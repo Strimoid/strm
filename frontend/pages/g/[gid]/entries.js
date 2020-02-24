@@ -6,14 +6,14 @@ import { useRouter } from 'next/router'
 
 export default function Entries () {
   const router = useRouter()
-  const { id } = router.query
+  const { gid } = router.query
 
   return (
     <div className='container bg-white mx-auto'>
       <Header />
       <WithSidebar>
         <EntryForm />
-        <EntryList group={id} />
+        <EntryList group={gid} />
       </WithSidebar>
     </div>
   )

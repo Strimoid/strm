@@ -13,3 +13,16 @@
 .btn-primary:hover {
     @apply bg-blue-700;
 }
+
+.dropdown {
+    @apply relative;
+}
+
+.dropdown .dropdown-menu {
+    @apply hidden;
+}
+
+.dropdown:hover > .dropdown-menu,
+.dropdown:focus-within > .dropdown-menu {
+    @apply block;
+}

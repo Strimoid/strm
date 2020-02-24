@@ -7,6 +7,9 @@ const GET_ME = gql`
     {
         me {
             name
+            notifications {
+              title
+            }
         }
     }
 `
@@ -27,9 +30,20 @@ function Header ({ token }) {
         </a>
       </Link>
 
+      <div className='ml-auto flex'>
+      {data && data.me.name &&
+        <div className='bg-white px-4 py-2 mr-4 dropdown'>
+          <div>🔔</div>
+          <div className='bg-white p-4 rounded-lg absolute right-0 shadow-xl dropdown-menu'>
+            {data.me.notifications.map(n => <div className='text-sm text-gray-700 py-2 border-gray-200 border-b last:border-b-0'>{n.title}</div>)}
+          </div>
+        </div>
+      }
+
       {data && data.me.name
-        ? <a className='bg-white px-4 py-2 ml-auto'>{data.me.name}</a>
-        : <Link href='/sign-in'><a className='bg-white px-4 py-2 ml-auto'><FormattedMessage id='header.sign-in' defaultMessage='Sign in' /></a></Link>}
+        ? <a className='bg-white px-4 py-2'>{data.me.name}</a>
+        : <Link href='/sign-in'><a className='bg-white px-4 py-2'><FormattedMessage id='header.sign-in' defaultMessage='Sign in' /></a></Link>}
+      </div>
 
     </header>
   )

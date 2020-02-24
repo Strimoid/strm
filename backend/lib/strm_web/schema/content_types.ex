@@ -84,6 +84,16 @@ defmodule StrmWeb.Schema.ContentTypes do
     field :name, :string
   end
 
+  object :notification do
+    field :title, :string
+    field :created_at, :naive_datetime
+  end
+
+  object :me do
+    import_fields :user
+    field :notifications, list_of(:notification)
+  end
+
   object :vote do
     field :up, :boolean
     field :user, :user

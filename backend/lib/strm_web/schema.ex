@@ -55,9 +55,9 @@ defmodule StrmWeb.Schema do
       resolve &Resolvers.Groups.find_group/3
     end
 
-    @desc "Get user"
-    field :me, :user do
-      resolve &Resolvers.Users.get_user/3
+    @desc "Get me"
+    field :me, :me do
+      resolve &Resolvers.Users.get_me/3
     end
 
   end

@@ -92,6 +92,10 @@ defmodule StrmWeb.Schema.ContentTypes do
   object :me do
     import_fields :user
     field :notifications, list_of(:notification)
+    field :blocked_groups, list_of(:group)
+    field :subscribed_groups, list_of(:group)
+    field :blocked_users, list_of(:user)
+    field :followed_users, list_of(:user)
   end
 
   object :vote do

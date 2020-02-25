@@ -11,6 +11,11 @@ defmodule Strm.Groups.Group do
 
     belongs_to :creator, Strm.Users.User
 
+    many_to_many :moderators, Strm.Users.User,
+      join_through: "group_moderators"
+    many_to_many :banned_users, Strm.Users.User,
+      join_through: "group_bans"
+
     has_many :contents, Strm.Contents.Content
     has_many :comments, Strm.Contents.Comment
     has_many :entries, Strm.Entries.Entry

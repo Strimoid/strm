@@ -14,7 +14,7 @@ defmodule Strm.Groups do
 
   def list_groups(cursor \\ nil) do
     Group
-      |> limit(10)
+      |> limit(30)
       |> order_by([desc: :created_at])
       |> paginate(cursor)
       |> Repo.all()

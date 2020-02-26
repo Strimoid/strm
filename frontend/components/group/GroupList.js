@@ -5,6 +5,7 @@ import GroupCard from './GroupCard'
 const GET_GROUPS = gql`
   query getGroups($cursor: String) {
     groups(cursor: $cursor) {
+      avatar
       name
       urlname
       description
@@ -26,7 +27,7 @@ export default () => {
 
   return (
     <div>
-      <div class='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3'>
+      <div class='grid grid-cols-1 xl:grid-cols-2'>
         {data.groups.map(group => <GroupCard key={group.urlname} group={group} />)}
       </div>
 

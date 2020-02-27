@@ -12,7 +12,7 @@ const GROUPS_QUERY = gql`
   }
 `
 
-export default () => {
+export default function GroupsSidebar() {
   const { loading, error, data } = useQuery(GROUPS_QUERY)
 
   if (loading) return 'Loading...'

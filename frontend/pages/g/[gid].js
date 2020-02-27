@@ -1,6 +1,6 @@
 import Header from '../../components/header/Header'
 import ContentList from '../../components/content/ContentList'
-import WithSidebar from '../../components/sidebar/with-sidebar'
+import WithSidebar from '../../components/sidebar/WithSidebar'
 import { useRouter } from 'next/router'
 
 export default function Index () {

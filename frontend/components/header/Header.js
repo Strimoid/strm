@@ -1,54 +1,38 @@
-import { useQuery } from '@apollo/react-hooks'
+import { useContext } from 'react'
 import { FormattedMessage } from 'react-intl'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import gql from 'graphql-tag'
+import Notifications from './Notifications'
+import { GroupContext, UserContext } from '../../lib/context'
 
-const GET_ME = gql`
-    {
-        me {
-            name
-            notifications {
-              title
-            }
-        }
-    }
-`
-
-function Header ({}) {
-  const router = useRouter()
-  const { gid } = router.query
-
-  const { data } = useQuery(GET_ME)
+function Header() {
+  const group = useContext(GroupContext)
+  const user = useContext(UserContext)
 
   return (
     <header className='w-full bg-blue-600 text-blue-500 px-4 pt-4 pb-0 mb-4 flex'>
-      <Link href={gid ? `/g/${gid}` : '/'}>
+      <Link href={group ? `/g/${group.urlname}` : '/'}>
         <a className='bg-white px-4 py-2 mr-4'>
           <FormattedMessage id='header.contents' defaultMessage='Contents' />
         </a>
       </Link>
-      <Link href={gid ? `/g/${gid}/entries` : '/entries'}>
+      <Link href={group ? `/g/${group.urlname}/entries` : '/entries'}>
         <a className='bg-white px-4 py-2'>
           <FormattedMessage id='header.entries' defaultMessage='Entries' />
         </a>
       </Link>
 
       <div className='ml-auto flex'>
-      {data && data.me.name &&
-        <div className='bg-white px-4 py-2 mr-4 dropdown'>
-          <div>🔔</div>
-          <div className='bg-white p-4 rounded-lg absolute right-0 shadow-xl dropdown-menu'>
-            {data.me.notifications.map(n => <div className='text-sm text-gray-700 py-2 border-gray-200 border-b last:border-b-0'>{n.title}</div>)}
-          </div>
-        </div>
-      }
+        {user.isAuthenticated && <Notifications notifications={user.notifications} />}
 
-      {data && data.me.name
-        ? <a className='bg-white px-4 py-2'>{data.me.name}</a>
-        : <Link href='/sign-in'><a className='bg-white px-4 py-2'><FormattedMessage id='header.sign-in' defaultMessage='Sign in' /></a></Link>}
+        {user.isAuthenticated
+          ? <a className='bg-white px-4 py-2'>{user.name}</a>
+          : <Link href='/sign-in'>
+            <a className='bg-white px-4 py-2'>
+              <FormattedMessage id='header.sign-in' defaultMessage='Sign in' />
+            </a>
+          </Link>
+        }
       </div>
-
     </header>
   )
 }

@@ -1,6 +1,8 @@
 import '../css/styles.css'
 import App from 'next/app'
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider } from '@apollo/react-hooks'
+import GroupProvider from '../components/provider/GroupProvider'
+import UserProvider from '../components/provider/UserProvider'
 import { createIntl, createIntlCache, RawIntlProvider } from 'react-intl'
 import cookies from 'next-cookies'
 import createApolloClient from '../lib/apollo'
@@ -8,7 +10,7 @@ import createApolloClient from '../lib/apollo'
 const intlCache = createIntlCache()
 
 export default class MyApp extends App {
-  static async getInitialProps ({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
 
     if (Component.getInitialProps) {
@@ -24,7 +26,7 @@ export default class MyApp extends App {
     return { pageProps, locale, messages, token }
   }
 
-  render () {
+  render() {
     const { Component, pageProps, locale, messages, token } = this.props
 
     const intl = createIntl(
@@ -38,7 +40,11 @@ export default class MyApp extends App {
     return (
       <RawIntlProvider value={intl}>
         <ApolloProvider client={createApolloClient(token)}>
-          <Component {...pageProps} />
+          <GroupProvider>
+            <UserProvider>
+              <Component {...pageProps} />
+            </UserProvider>
+          </GroupProvider>
         </ApolloProvider>
       </RawIntlProvider>
     )

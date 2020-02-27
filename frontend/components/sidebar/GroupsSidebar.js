@@ -21,7 +21,7 @@ export default function GroupsSidebar() {
   return (
     <>
       {data.popularGroups.slice(0, 30).map(group =>
-        <Link key={group.urlname} href={`/g/${group.urlname}`}>
+        <Link key={group.urlname} href='/g/[gid]' as={`/g/${group.urlname}`}>
           <a className="block mb-2 text-gray-700 hover:text-blue-500">
             {group.avatar ? <img className="w-4 h-4 mr-2 rounded-full inline" src={`https://strm.pl/i/groups/${group.avatar}`} /> : ''}
             {group.urlname}

@@ -1,14 +1,7 @@
-[
-  {
-    "id": "header.contents",
-    "defaultMessage": "Treści"
-  },
-  {
-    "id": "header.entries",
-    "defaultMessage": "Wpisy"
-  },
-  {
-    "id": "header.sign-in",
-    "defaultMessage": "Zaloguj się"
-  }
-]
+{
+  "header.contents": "Treści",
+  "header.entries": "Wpisy",
+  "header.sign-in": "Zaloguj się",
+  "content.comments_count": "{count, plural, one {# komentarz} many {# komentarzy} other {# komentarze}}",
+  "content.added": "dodano"
+}

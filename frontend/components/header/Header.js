@@ -10,12 +10,12 @@ function Header() {
 
   return (
     <header className='w-full bg-blue-600 text-blue-500 px-4 pt-4 pb-0 mb-4 flex'>
-      <Link href={group ? `/g/${group.urlname}` : '/'}>
+      <Link href={group ? '/g/[gid]' : '/'} as={group ? `/g/${group.urlname}` : '/'}>
         <a className='bg-white px-4 py-2 mr-4'>
           <FormattedMessage id='header.contents' defaultMessage='Contents' />
         </a>
       </Link>
-      <Link href={group ? `/g/${group.urlname}/entries` : '/entries'}>
+      <Link href={group ? '/g/[gid]/entries' : '/entries'} as={group ? `/g/${group.urlname}/entries` : '/entries'}>
         <a className='bg-white px-4 py-2'>
           <FormattedMessage id='header.entries' defaultMessage='Entries' />
         </a>

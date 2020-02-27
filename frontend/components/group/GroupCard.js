@@ -7,10 +7,10 @@ export default ({ group }) => (
       <div className='flex-none'>
         <img className='w-20 h-20 mr-4' src={`https://strm.pl/i/groups/${group.avatar}`} />
       </div>
-    : ''}
+      : ''}
     <div>
       <h2>
-        <Link href={`/g/${group.urlname}`}>
+        <Link href='/g/[gid]' as={`/g/${group.urlname}`}>
           <a>
             {group.name} <span className='text-gray-400'>[g/{group.urlname}]</span>
           </a>

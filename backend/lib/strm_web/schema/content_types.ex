@@ -85,6 +85,7 @@ defmodule StrmWeb.Schema.ContentTypes do
   end
 
   object :notification do
+    field :id, :id
     field :title, :string
     field :created_at, :naive_datetime
   end

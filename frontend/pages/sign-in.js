@@ -4,7 +4,7 @@ import Router from 'next/router'
 import Config from '../config'
 import Cookies from 'js-cookie'
 
-export default function SignIn () {
+export default function SignIn() {
   const [error, setError] = useState(null)
   const formik = useFormik({
     initialValues: {
@@ -32,28 +32,28 @@ export default function SignIn () {
   })
   return (
     <form onSubmit={formik.handleSubmit} className='bg-white shadow-md rounded px-8 pt-6 pb-8 my-8 w-full max-w-xs mx-auto'>
-      <div class='mb-4'>
-        <label class='block text-gray-700 text-sm font-bold mb-2' for='username'>
-                    Username
+      <div className='mb-4'>
+        <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='username'>
+          Username
         </label>
-        <input onChange={formik.handleChange} class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='username' type='text' placeholder='Username' />
+        <input onChange={formik.handleChange} className='input w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='username' type='text' placeholder='Username' />
       </div>
-      <div class='mb-4'>
-        <label class='block text-gray-700 text-sm font-bold mb-2' for='password'>
-                    Password
+      <div className='mb-4'>
+        <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='password'>
+          Password
         </label>
-        <input onChange={formik.handleChange} class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='password' type='password' placeholder='Password' />
+        <input onChange={formik.handleChange} className='input w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' id='password' type='password' placeholder='Password' />
       </div>
       <div className='text-red-500 italic'>
         {error}
       </div>
-      <div class='flex items-center justify-between mt-4'>
-        <a class='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800' href='#'>
-                    Forgot password?
+      <div className='flex items-center justify-between mt-4'>
+        <a className='inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800' href='#'>
+          Forgot password?
         </a>
 
         <button className='btn btn-primary font-bold focus:outline-none focus:shadow-outline' type='submit'>
-                    Sign in
+          Sign in
         </button>
       </div>
     </form>

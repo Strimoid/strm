@@ -1,0 +1,14 @@
+[
+  {
+    "id": "header.contents",
+    "defaultMessage": "Treści"
+  },
+  {
+    "id": "header.entries",
+    "defaultMessage": "Wpisy"
+  },
+  {
+    "id": "header.sign-in",
+    "defaultMessage": "Zaloguj się"
+  }
+]

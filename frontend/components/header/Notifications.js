@@ -4,7 +4,7 @@ export default function Notifications({ notifications }) {
       <div>🔔</div>
       <div className='bg-white p-4 rounded-lg absolute right-0 shadow-xl dropdown-menu'>
         {notifications.map(n =>
-          <div className='text-sm text-gray-700 py-2 border-gray-200 border-b last:border-b-0'>
+          <div key={n.id} className='text-sm text-gray-700 py-2 border-gray-200 border-b last:border-b-0'>
             {n.title}
           </div>
         )}

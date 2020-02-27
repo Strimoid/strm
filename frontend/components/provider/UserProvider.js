@@ -8,6 +8,7 @@ const GET_ME = gql`
       avatar
       name
       notifications {
+        id
         title
       }
     }

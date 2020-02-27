@@ -6,12 +6,11 @@ export default class IntlDocument extends Document {
   static async getInitialProps (context) {
     const props = await super.getInitialProps(context)
     const {
-      req: { locale, localeDataScript }
+      req: { locale }
     } = context
     return {
       ...props,
-      locale,
-      localeDataScript
+      locale
     }
   }
 
@@ -21,11 +20,6 @@ export default class IntlDocument extends Document {
         <Head />
         <body className='bg-gray-100'>
           <Main />
-          <script
-            dangerouslySetInnerHTML={{
-              __html: this.props.localeDataScript
-            }}
-          />
           <NextScript />
         </body>
       </html>

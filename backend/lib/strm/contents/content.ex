@@ -5,6 +5,7 @@ defmodule Strm.Contents.Content do
     field :title, :string
     field :description, :string
     field :thumbnail, :string
+    field :url, :string
 
     field :uv, :integer
     field :dv, :integer
